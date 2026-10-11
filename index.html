@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renewable & Future Ship Energy System — Rafael Sukirno, CE</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#eef4fb,#d9e6f5);color:#1a1a1a;line-height:1.65}
+  /* NAVBAR */
+  nav{background:linear-gradient(90deg,#0a2b4e,#1e5799);padding:.6rem .8rem;display:flex;flex-wrap:wrap;gap:.35rem;position:sticky;top:0;z-index:50;box-shadow:0 3px 12px rgba(0,0,0,.3)}
+  nav a{color:#fff;text-decoration:none;font-weight:600;padding:.45rem .8rem;border-radius:8px;cursor:pointer;font-size:.82rem;transition:.2s;white-space:nowrap;border:1px solid transparent}
+  nav a:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+  nav a.active{background:#ffd700;color:#0a2b4e;border-color:#ffd700}
+  /* LAYOUT */
+  .container{max-width:1300px;margin:1.4rem auto;padding:0 1rem}
+  h1{color:#0a2b4e;font-size:1.55rem;line-height:1.3}
+  .subtitle{color:#555;font-size:.9rem;margin:.3rem 0 1rem}
+  .subtitle strong{color:#0a2b4e}
+  .legend{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0 1.3rem;font-size:.78rem}
+  .legend span{padding:.35rem .75rem;border-radius:20px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.1);font-weight:600}
+  .badge{display:inline-block;font-size:.66rem;font-weight:700;padding:.2rem .55rem;border-radius:12px;letter-spacing:.2px}
+  .green{background:#d4edda;color:#155724}
+  .yellow{background:#fff3cd;color:#856404}
+  .blue{background:#d1ecf1;color:#0c5460}
+  /* CARDS */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1rem;margin-bottom:2rem}
+  .card{background:#fff;border-radius:12px;padding:1.1rem 1.2rem;box-shadow:0 2px 10px rgba(0,0,0,.08);border-left:5px solid #1e5799;transition:.25s;cursor:pointer;position:relative}
+  .card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.16);border-left-color:#ffd700}
+  .card h3{color:#0a2b4e;font-size:1rem;margin:.3rem 0 .25rem;line-height:1.3}
+  .card h4{color:#1e5799;font-size:.78rem;font-weight:600;margin-bottom:.5rem;font-style:italic}
+  .card p{font-size:.83rem;color:#444;margin:.35rem 0}
+  .card .meta{font-size:.72rem;color:#666;margin-top:.4rem;padding-top:.4rem;border-top:1px dashed #dde5ee}
+  .btn-google{display:inline-block;background:#4285f4;color:#fff;padding:.42rem .85rem;border-radius:8px;text-decoration:none;font-size:.78rem;margin-top:.5rem;font-weight:600;transition:.2s;border:none;cursor:pointer}
+  .btn-google:hover{background:#2a6fd1;transform:scale(1.03)}
+  /* MODAL */
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;padding:1rem;overflow-y:auto}
+  .modal.show{display:block}
+  .modal-content{background:#f8fbff;padding:1.6rem 1.8rem;border-radius:14px;max-width:960px;width:100%;margin:2rem auto;box-shadow:0 20px 60px rgba(0,0,0,.4);animation:slideIn .28s ease;position:relative}
+  @keyframes slideIn{from{opacity:0;transform:translateY(-25px)}to{opacity:1;transform:translateY(0)}}
+  .close{position:absolute;top:.7rem;right:1rem;font-size:1.9rem;cursor:pointer;color:#0a2b4e;font-weight:700;line-height:1;transition:.2s}
+  .close:hover{color:#d32f2f;transform:rotate(90deg)}
+  /* MODAL HEADER */
+  .m-head{border-bottom:2px solid #e0e6ed;padding-bottom:.7rem;margin-bottom:1rem}
+  .m-head h2{color:#0a2b4e;font-size:1.35rem;line-height:1.3;padding-right:2rem}
+  .m-head small{display:block;color:#1e5799;font-size:.85rem;font-weight:500;margin-top:.15rem;font-style:italic}
+  .m-head .badge{margin-top:.5rem}
+  /* MODAL SECTIONS */
+  .section{margin:.9rem 0;padding:.85rem 1.1rem;background:#fff;border-radius:10px;border-left:4px solid #1e5799;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+  .section h4{color:#0a2b4e;font-size:.92rem;margin-bottom:.45rem;display:flex;align-items:center;gap:.35rem}
+  .section p,.section li{font-size:.86rem;color:#333}
+  .section ul{padding-left:1.2rem;margin-top:.3rem}
+  .section li{margin-bottom:.25rem}
+  .flow{background:#0a2b4e;color:#fff;padding:.85rem 1rem;border-radius:8px;font-size:.83rem;text-align:center;line-height:2;margin-top:.4rem}
+  .flow em{background:#ffd700;color:#0a2b4e;padding:.18rem .55rem;border-radius:6px;font-style:normal;font-weight:600;display:inline-block;margin:.15rem .1rem}
+  table{width:100%;border-collapse:collapse;margin-top:.5rem;font-size:.8rem}
+  th,td{padding:.5rem;text-align:left;border-bottom:1px solid #e0e6ed;vertical-align:top}
+  th{background:#e8f0fa;color:#0a2b4e;font-weight:700}
+  tr:hover{background:#f5f9ff}
+  .kv{display:grid;grid-template-columns:180px 1fr;gap:.35rem .8rem;font-size:.85rem;margin-top:.4rem}
+  .kv b{color:#0a2b4e}
+  .btn-gq{display:inline-block;background:#4285f4;color:#fff;padding:.55rem 1.15rem;border-radius:8px;text-decoration:none;font-size:.85rem;margin:.7rem .5rem .3rem 0;font-weight:600;transition:.2s}
+  .btn-gq:hover{background:#2a6fd1;transform:scale(1.03)}
+  .btn-back{display:inline-block;background:#0a2b4e;color:#fff;padding:.5rem 1rem;border-radius:8px;text-decoration:none;font-size:.85rem;font-weight:600;cursor:pointer;margin-bottom:.8rem;border:none}
+  .btn-back:hover{background:#1e5799}
+  /* HOME HERO */
+  .hero{background:linear-gradient(135deg,#0a2b4e,#1e5799);color:#fff;padding:1.6rem;border-radius:14px;margin-bottom:1.3rem;box-shadow:0 8px 24px rgba(10,43,78,.3)}
+  .hero h2{font-size:1.25rem;margin-bottom:.5rem}
+  .hero p{font-size:.9rem;opacity:.95;margin-bottom:.5rem}
+  .hero .flow-hero{background:rgba(255,255,255,.12);padding:.6rem .9rem;border-radius:8px;font-size:.85rem;margin-top:.6rem;text-align:center;line-height:1.9}
+  .hero .flow-hero em{background:#ffd700;color:#0a2b4e;padding:.15rem .5rem;border-radius:5px;font-style:normal;font-weight:700;display:inline-block;margin:.1rem}
+  /* SECTION HEADER */
+  .sec-head{color:#0a2b4e;font-size:1.1rem;margin:1.5rem 0 .8rem;padding-bottom:.4rem;border-bottom:2px solid #1e5799}
+  footer{text-align:center;padding:1.8rem 1rem;color:#0a2b4e;font-weight:600;font-size:.82rem}
+  @media(max-width:640px){
+    h1{font-size:1.25rem}.modal-content{padding:1.1rem}.kv{grid-template-columns:1fr}
+    nav a{font-size:.72rem;padding:.35rem .55rem}.card{padding:.9rem}
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a data-cat="home" onclick="showHome(this)">🏠 Beranda</a>
+  <a data-cat="A" onclick="showCategory('A',this)">🅰️ Energi Alam</a>
+  <a data-cat="B" onclick="showCategory('B',this)">🅱️ Storage</a>
+  <a data-cat="C" onclick="showCategory('C',this)">🅲 H₂ & Fuel Cell</a>
+  <a data-cat="D" onclick="showCategory('D',this)">🅳 Green Fuel</a>
+  <a data-cat="E" onclick="showCategory('E',this)">🅴 Harvesting</a>
+  <a data-cat="F" onclick="showCategory('F',this)">🅵 Integrated Ship</a>
+  <a data-cat="T" onclick="showCategory('T',this)">🛠 Troubleshooting</a>
+</nav>
+
+<div class="container">
+  <h1>⚓ Renewable, Sustainable & Future Ship Energy System</h1>
+  <p class="subtitle">Oleh: <strong>Rafael Sukirno, CE</strong> — Dosen Pengampu | Taruna Teknika & ETO | Referensi Kapal: <strong>50.000 DWT Bulk Carrier</strong></p>
+
+  <div class="legend">
+    <span><span class="badge green">🟢</span> COMMERCIAL / Sudah Digunakan Komersial</span>
+    <span><span class="badge yellow">🟡</span> DEMONSTRATION / Demonstrasi &amp; Awal Komersial</span>
+    <span><span class="badge blue">🔵</span> EMERGING / Teknologi Berkembang &amp; Penelitian</span>
+  </div>
+
+  <div id="content"></div>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-content" id="modalContent">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<footer>© 2026 Rafael Sukirno, CE — Renewable &amp; Future Shipboard Energy System</footer>
+
+<script>
+/* ============================================================
+   UTIL: buat link Google Images
+   ============================================================ */
+function gq(q){ return "https://www.google.com/search?q=" + encodeURIComponent(q) + "&tbm=isch"; }
+
+/* ============================================================
+   DATA MODUL (Bilingual: English / Bahasa Indonesia)
+   Struktur pedagogis: KENAL → PAHAM → LIHAT → HITUNG → UKUR →
+   OPERASIKAN → TROUBLESHOOT → INTEGRASIKAN
+   ============================================================ */
+const DATA = {
+  A: {
+    title:"🅰️ KELOMPOK A — ENERGI ALAM LANGSUNG (Direct Natural Energy)",
+    items:[
+      {
+        n:"Solar PV / Panel Surya", sub:"Solar Photovoltaic / Fotovoltaik Surya",
+        s:"green", gq:"marine solar PV panel ship diagram",
+        apa:"Sistem yang mengubah cahaya matahari menjadi listrik DC (Direct Current / Arus Searah).",
+        mengapa:"Mengurangi konsumsi bahan bakar untuk hotel load (beban akomodasi), terutama saat siang hari.",
+        cara:"Sunlight (Cahaya Matahari) → PV Cell (Sel Surya) → DC Electricity (Listrik DC) → MPPT → DC Bus → Inverter (Pengubah DC→AC) → AC Load (Beban AC).",
+        alur:["☀️ Sunlight / Cahaya","🔋 PV Cell / Sel Surya","⚡ DC / Arus Searah","🎛️ MPPT","🔌 DC Bus","🔄 Inverter","💡 AC Load"],
+        komponen:"PV Module, PV Array, MPPT / Maximum Power Point Tracking (Pengendali Titik Daya Maksimum), DC Fuse (Sekring DC), DC Breaker, Inverter, Battery.",
+        electrical:"PV Array → Combiner Box → MPPT → DC Bus → Inverter → MSB / Main Switchboard (Panel Utama).",
+        eto:"Irradiance Sensor (Sensor Cahaya) → Voltage/Current Sensor → MPPT Controller → PLC → HMI / Human Machine Interface (Layar Monitoring).",
+        aplikasi:"Auxiliary power (daya bantu) untuk lighting, navigasi, hotel load pada bulk carrier.",
+        kapal50k:"40–80 kWp, area deck 200–400 m², hemat BBM 1–3%.",
+        kelebihan:"Tanpa bahan bakar, tanpa emisi, minim perawatan, umur 20–25 tahun.",
+        keterbatasan:"Bergantung cuaca, area terbatas, korosi salt spray (semburan garam), harga awal tinggi.",
+        safety:"Isolasi DC, arc fault protection (proteksi busur listrik), grounding (pentanahan), PPE saat perawatan.",
+        hitung:"P = V × I. Contoh: 24 V × 10 A = 240 W. 50 kWp ÷ 550 Wp/panel = 91 panel.",
+        jobsheet:"Ukur V, I, P panel; buat grafik P terhadap cahaya; uji MPPT; observasi SOC (State of Charge / Status Isi Baterai).",
+        troubleshoot:"PV tidak output → cek irradiance, fuse DC, koneksi string, MPPT error.",
+        quiz:"1) Mengapa MPPT penting? 2) Beda Vmp & Voc? 3) Dampak shading pada satu panel?",
+        pembuat:"Solara Marine (DE), SunPower (US), Trina Solar (CN), Alewijnse (NL).",
+        harga:"US$ 2.250/kWp → 50 kWp ≈ US$ 112.500 (modul saja)."
+      },
+      {
+        n:"Flettner Rotor / Rotor Angin", sub:"Flettner Rotor / Rotor Sail (Layar Rotor)",
+        s:"green", gq:"Flettner Rotor ship diagram Magnus effect",
+        apa:"Silinder vertikal berputar yang memanfaatkan Magnus Effect (Efek Magnus) untuk menghasilkan gaya dorong dari angin.",
+        mengapa:"Mengurangi konsumsi bahan bakar dengan memanfaatkan angin sebagai tenaga dorong tambahan.",
+        cara:"Wind (Angin) → Rotating Cylinder (Silinder Berputar) → Magnus Effect → Lift Force (Gaya Angkat) → Thrust (Gaya Dorong) → Ship Movement (Gerak Kapal).",
+        alur:["💨 Wind / Angin","🌀 Rotating Cylinder","✨ Magnus Effect","⬆️ Lift / Angkat","➡️ Thrust / Dorong","🚢 Ship Movement"],
+        komponen:"Rotor Cylinder, Electric Motor (Motor Listrik), VFD / Variable Frequency Drive (Pengatur Kecepatan Motor), Bearing (Bantalan), Support Structure.",
+        electrical:"MSB → MCC / Motor Control Center (Pusat Kendali Motor) → VFD → Electric Motor → Rotor.",
+        eto:"Wind Sensor → PLC / Programmable Logic Controller (Pengendali Logika Terprogram) → Control System → VFD → Motor.",
+        aplikasi:"Retrofit saat dry docking. Contoh: Maersk Pelican, Viking Grace.",
+        kapal50k:"2–4 rotor 24–30 m, ≥384 kW dorong/unit, hemat BBM 5–20%.",
+        kelebihan:"Hemat BBM signifikan, dapat di-retrofit, otomatis, cocok rute berangin.",
+        keterbatasan:"Bergantung rute & cuaca, mahal awal, butuh ruang deck.",
+        safety:"Emergency Stop (Penghentian Darurat), overspeed protection, lightning rod (penangkal petir).",
+        hitung:"F ≈ ρ · v · 2π · ω · r · L (pendekatan Magnus). P = F × V_ship.",
+        jobsheet:"Identifikasi komponen rotor, ukur RPM motor, uji VFD, cek respons sensor angin.",
+        troubleshoot:"Rotor tidak start → cek wind sensor, interlock, VFD fault.",
+        quiz:"1) Jelaskan Magnus Effect. 2) Fungsi VFD? 3) Bagaimana kontrol otomatis?",
+        pembuat:"Norsepower (FI), Anemoi Marine (UK), Magnuss (UK).",
+        harga:"US$ 500.000–1.000.000/rotor → 4 unit ≈ US$ 2–4 juta."
+      },
+      {
+        n:"Suction Sail / Layar Hisap", sub:"Suction Sail / eSAIL",
+        s:"yellow", gq:"bound4blue eSAIL suction sail ship",
+        apa:"Silinder ellips dengan slot hisap. Kipas internal menghisap udara sehingga aliran menjadi laminar dan lift (gaya angkat) meningkat.",
+        mengapa:"Lebih efisien dari rotor biasa pada kecepatan angin rendah. Cocok untuk retrofit.",
+        cara:"Wind → Suction Sail → Internal Fan (Kipas Hisap) → Attached Flow → Lift → Thrust.",
+        alur:["💨 Wind","🌀 Suction Sail","💨 Internal Fan","⬆️ Lift","➡️ Thrust"],
+        komponen:"Sail Cylinder, Suction Fan, Electric Motor, VFD, Actuator (Penggerak Sudut).",
+        electrical:"MSB → MCC → VFD → Motor Fan & Motor Aktuator.",
+        eto:"Wind Sensor → PLC → Control Logic → Auto Deployment (Penggelaran Otomatis) → Alarm.",
+        aplikasi:"Contoh: Pacific Sentinel (50.000 DWT, 3 unit 22 m, 2025).",
+        kapal50k:"3–4 unit, hemat BBM ±10%.",
+        kelebihan:"Lebih efisien dari rotor biasa, otomatis, cocok retrofit.",
+        keterbatasan:"Kipas butuh daya listrik; mahal.",
+        safety:"Emergency Stop, proteksi kipas, limit switch aktuator.",
+        hitung:"Daya dorong ~ 2× rotor biasa pada kecepatan angin sama.",
+        jobsheet:"Buat block diagram sistem; uji aktuator sudut sail.",
+        troubleshoot:"Sail tidak deploy → cek sensor angin, aktuator, PLC.",
+        quiz:"1) Beda suction sail vs rotor? 2) Fungsi kipas? 3) Kapan auto deploy?",
+        pembuat:"bound4blue (ES).",
+        harga:"Paket 3 unit ≈ US$ 1–2 juta."
+      },
+      {
+        n:"Rigid Wing Sail / Layar Sayap Kaku", sub:"Rigid Wing Sail",
+        s:"yellow", gq:"rigid wing sail ship OceanWings",
+        apa:"Struktur sayap kaku menyerupai sayap pesawat yang dipasang vertikal.",
+        mengapa:"Menghasilkan gaya angkat 2,5× lebih besar dari layar datar; dapat dilipat saat cuaca buruk.",
+        cara:"Wind → Rigid Wing → Lift (Gaya Angkat) → Thrust (Dorong). Sudut sayap diatur otomatis.",
+        alur:["💨 Wind","✈️ Rigid Wing","⬆️ Lift","➡️ Thrust"],
+        komponen:"Wing Structure, Rotation Mechanism, Actuator, Sensor Sudut.",
+        electrical:"MSB → MCC → Motor Aktuator → Wing Rotation.",
+        eto:"Wind Sensor → PLC → Auto Rotate → Emergency Fold (Lipat Darurat).",
+        aplikasi:"Contoh: Oriental Aquamarine (50.000 DWT MR Tanker, 2026).",
+        kapal50k:"1 unit 30×10 m, hemat BBM 5–20%.",
+        kelebihan:"Efisien tinggi, bisa dilipat, otomatis.",
+        keterbatasan:"Berat, mahal, butuh ruang deck, kompleks.",
+        safety:"Emergency fold, limit switch, proteksi angin kencang.",
+        hitung:"Lift ≈ 2.5× soft sail pada area sama.",
+        jobsheet:"Identifikasi aktuator, uji fold/unfold otomatis.",
+        troubleshoot:"Wing tidak fold → cek aktuator, sensor, PLC.",
+        quiz:"1) Kenapa lebih efisien? 2) Bagaimana fold otomatis? 3) Kapan tidak digunakan?",
+        pembuat:"HD KSOE (KR), BAR Technologies (UK).",
+        harga:"US$ 2–4 juta/unit."
+      },
+      {
+        n:"Soft Sail Modern / Layar Modern", sub:"Modern Soft Sail",
+        s:"yellow", gq:"Michelin WISAMO inflatable wing sail ship",
+        apa:"Layar tekstil modern (Dyneema, Kevlar) dengan sistem reefing & furling (menggulung/melipat) otomatis.",
+        mengapa:"Menghidupkan kembali teknologi layar tradisional dengan material & kontrol modern.",
+        cara:"Wind → Soft Sail → Lift → Thrust. Layar digelar otomatis oleh winch elektrik.",
+        alur:["💨 Wind","🧵 Soft Sail","⬆️ Lift","➡️ Thrust"],
+        komponen:"Sail Textile, Winch (Derek), Electric Motor, Furling System.",
+        electrical:"MSB → MCC → VFD → Motor Winch.",
+        eto:"Wind Sensor → PLC → Auto Furling & Reefing.",
+        aplikasi:"Neoline, Michelin WISAMO (konsep), Wallenius.",
+        kapal50k:"3–5 layar otomatis, hemat BBM 5–15%.",
+        kelebihan:"Ringan, murah dibanding wing, mudah diperbaiki.",
+        keterbatasan:"Kurang efisien dari rigid wing, butuh kru saat darurat.",
+        safety:"Auto furling darurat, proteksi winch overload.",
+        hitung:"Lift ≈ 1.0× (basis perbandingan).",
+        jobsheet:"Uji furling otomatis, ukur arus winch.",
+        troubleshoot:"Winch error → cek motor, VFD, sensor posisi.",
+        quiz:"1) Beda soft vs rigid wing? 2) Fungsi furling? 3) Material layar modern?",
+        pembuat:"Neoline (FR), Michelin WISAMO (FR), Wallenius (SE).",
+        harga:"US$ 1–3 juta."
+      },
+      {
+        n:"Kite Propulsion / Layar Layang", sub:"Kite Propulsion",
+        s:"yellow", gq:"Airseas Seawing kite propulsion ship",
+        apa:"Layar besar berbentuk layang-layang (kite) yang diterbangkan dari haluan kapal untuk menarik kapal.",
+        mengapa:"Memanfaatkan angin pada ketinggian lebih tinggi tanpa memakan ruang deck.",
+        cara:"Wind → Kite → Traction (Traksi) → Winch (Derek) → Towing System (Sistem Tarik) → Ship.",
+        alur:["💨 Wind","🪁 Kite","🔗 Traction","⚙️ Winch","🚢 Towing"],
+        komponen:"Kite, Towing Rope (Tali Tarik), Winch, Flight Control System.",
+        electrical:"MSB → MCC → VFD → Motor Winch.",
+        eto:"Flight Controller → Sensor → Automation → Safety Interlock.",
+        aplikasi:"Airseas Seawing pada bulk carrier (2022–).",
+        kapal50k:"Kite 500–1.000 m², hemat BBM 5–20%.",
+        kelebihan:"Tidak makan deck space, angin lebih kuat di ketinggian.",
+        keterbatasan:"Kompleks, mahal, butuh sistem pelepasan cepat.",
+        safety:"Quick Release (Pelepasan Cepat), ESD, proteksi tali.",
+        hitung:"Traction ≈ 200–500 kN tergantung ukuran & angin.",
+        jobsheet:"Observasi pola flight, uji quick release.",
+        troubleshoot:"Kite tidak terbang → cek wind, flight controller, winch.",
+        quiz:"1) Kenapa kite lebih tinggi? 2) Fungsi flight control? 3) Sistem keamanan?",
+        pembuat:"Airseas (FR), Skysails (DE).",
+        harga:"€5–8 juta/sistem."
+      },
+      {
+        n:"Wave Energy / Energi Gelombang", sub:"Wave Energy Converter (WEC)",
+        s:"blue", gq:"wave energy converter oscillating water column ship",
+        apa:"Sistem yang mengubah gerakan gelombang laut menjadi listrik.",
+        mengapa:"Potensi energi besar, tersedia 24/7, tetapi masih emerging.",
+        cara:"Wave Motion (Gerak Gelombang) → Mechanical Movement (Gerakan Mekanik) → Generator → Electricity.",
+        alur:["🌊 Wave Motion","⚙️ Mechanical Movement","🔄 Generator","⚡ Electricity"],
+        komponen:"OWC / Oscillating Water Column (Kolom Air Berosilasi), Point Absorber, Turbine, Generator.",
+        electrical:"Generator → Rectifier (Penyearah) → DC Bus → Inverter.",
+        eto:"Sensor Gelombang → PLC → Control Damping (Pengendalian Redaman).",
+        aplikasi:"Emerging; belum standar untuk kapal besar.",
+        kapal50k:"Belum aplikatif onboard; offshore 10–100 kW/unit.",
+        kelebihan:"Renewable 24/7, densitas energi tinggi.",
+        keterbatasan:"Korosi, biofouling, mahal, maintenance sulit.",
+        safety:"Proteksi lambung, anti-korosi, monitoring struktur.",
+        hitung:"P ≈ 0.5 × H² × T × lebar (kW/m).",
+        jobsheet:"Studi kasus WEC, identifikasi komponen.",
+        troubleshoot:"Output rendah → cek fouling, mekanisme, sensor.",
+        quiz:"1) Beda wave vs tidal? 2) Jenis WEC? 3) Tantangan utama?",
+        pembuat:"CorPower Ocean (SE), Ocean Power Technologies (US).",
+        harga:"US$ 3.000–8.000/kW (prototipe)."
+      },
+      {
+        n:"Tidal & Ocean Current / Pasang Surut & Arus Laut", sub:"Tidal &amp; Ocean Current Energy",
+        s:"blue", gq:"tidal stream turbine underwater ship",
+        apa:"Energi dari arus laut atau perbedaan tinggi pasang surut.",
+        mengapa:"Energi stabil & prediktabel (bisa dihitung), tetapi belum untuk onboard.",
+        cara:"Water Current (Arus Air) → Turbine (Turbin) → Generator → Electricity.",
+        alur:["🌊 Water Current","🌀 Turbine","🔄 Generator","⚡ Electricity"],
+        komponen:"Underwater Turbine, Generator, Anchoring System.",
+        electrical:"Generator → Rectifier → DC Bus → Inverter.",
+        eto:"Current Sensor → PLC → Yaw Control (Kendali Arah).",
+        aplikasi:"Tidal Stream & Tidal Range — lebih cocok untuk shore & offshore.",
+        kapal50k:"Belum aplikatif onboard.",
+        kelebihan:"Prediktabel, energi besar.",
+        keterbatasan:"Korosi, biofouling, maintenance bawah air.",
+        safety:"Anchoring kuat, anti-korosi, ROV monitoring.",
+        hitung:"P = 0.5 × ρ_water × A × v³ × Cp.",
+        jobsheet:"Studi kasus La Rance (FR), Sihwa (KR).",
+        troubleshoot:"Turbin tidak putar → cek fouling, arus, sensor.",
+        quiz:"1) Beda tidal stream vs tidal range? 2) Kenapa air lebih kuat dari angin?",
+        pembuat:"SIMEC Atlantis (UK), Orbital Marine (UK), Andritz Hydro.",
+        harga:"US$ 4.000–10.000/kW."
+      },
+      {
+        n:"Ocean Thermal Energy / Energi Panas Laut", sub:"Ocean Thermal Energy Conversion (OTEC)",
+        s:"blue", gq:"OTEC ocean thermal energy conversion diagram",
+        apa:"Memanfaatkan perbedaan suhu (ΔT) antara air laut permukaan (hangat) dan air laut dalam (dingin) untuk menghasilkan listrik.",
+        mengapa:"Renewable 24/7, tetapi sangat terbatas & mahal.",
+        cara:"Temperature Difference (Beda Suhu) → Thermal Cycle (Siklus Termal) → Turbine → Generator → Electricity.",
+        alur:["🌡️ ΔT","🔥 Thermal Cycle","🌀 Turbine","🔄 Generator","⚡ Electricity"],
+        komponen:"Evaporator, Turbine, Condenser (Kondensor), Cold Water Pipe.",
+        electrical:"Generator → Grid / DC Bus.",
+        eto:"Temp Sensor → PLC → Flow Control.",
+        aplikasi:"Contoh: Hawaii OTEC, Okinawa.",
+        kapal50k:"Belum aplikatif. Skala 100 kW–1 MW untuk pulau.",
+        kelebihan:"Renewable 24/7, tidak tergantung cuaca.",
+        keterbatasan:"Sangat mahal, butuh pipa panjang, efisiensi rendah.",
+        safety:"Korosi, tekanan, pipa bawah laut.",
+        hitung:"η ≈ 3–5% (rendah karena ΔT kecil).",
+        jobsheet:"Diagram siklus, kalkulasi Carnot.",
+        troubleshoot:"Output rendah → cek ΔT, flow, fouling.",
+        quiz:"1) Kenapa OTEC mahal? 2) Beda open & closed cycle?",
+        pembuat:"Makai Ocean Engineering (US), Xenesys (JP).",
+        harga:"US$ 10.000–20.000/kW."
+      },
+      {
+        n:"Marine Biomass / Biomassa Laut", sub:"Marine Bioenergy &amp; Biofuel",
+        s:"green", gq:"marine biofuel biodiesel HVO ship",
+        apa:"Energi dari biomassa (algae, limbah organik, residu) diolah menjadi biodiesel, bio-methanol, biogas, biomethane.",
+        mengapa:"Drop-in fuel (bahan bakar langsung) yang dapat langsung dipakai di mesin diesel tanpa modifikasi signifikan.",
+        cara:"Biomass → Refining (Pengolahan) → Biofuel → Ship Engine (Mesin Kapal).",
+        alur:["🌿 Biomass","🏭 Refining","⛽ Biofuel","🚢 Engine"],
+        komponen:"Storage Tank, Fuel Pump, Fuel Filter, Injector.",
+        electrical:"Fuel Pump Motor → MCC → MSB.",
+        eto:"Level Sensor → Flow Sensor → PLC → Alarm.",
+        aplikasi:"B20–B30 sudah umum; bio-methanol pada Laura Maersk (2023).",
+        kapal50k:"Drop-in 5–30% tanpa modifikasi.",
+        kelebihan:"Drop-in, mengurangi emisi CO₂, tersedia luas.",
+        keterbatasan:"Harga fluktuatif, kompetisi dengan pangan, kualitas bervariasi.",
+        safety:"Fire fighting (pemadam api), spill containment (penahan tumpahan).",
+        hitung:"Reduksi emisi proporsional dengan % blend & feedstock.",
+        jobsheet:"Uji viskositas, flash point, calorific value.",
+        troubleshoot:"Mesin tersendat → cek kualitas BBM, filter.",
+        quiz:"1) Apa itu drop-in fuel? 2) Beda biodiesel & HVO?",
+        pembuat:"Neste (FI), GoodFuels (NL), Chevron Renewable, MAN ES.",
+        harga:"US$ 800–1.400/ton."
+      }
+    ]
+  },
+
+  B: {
+    title:"🅱️ KELOMPOK B — ENERGY STORAGE (Penyimpanan Energi)",
+    items:[
+      {
+        n:"Battery Energy Storage / Penyimpanan Baterai", sub:"Battery Energy Storage System (BESS) — Sistem Penyimpanan Energi Baterai",
+        s:"green", gq:"marine battery energy storage system ship BESS",
+        apa:"Sistem baterai lithium-ion (LFP/NMC) untuk menyimpan listrik di kapal.",
+        mengapa:"Untuk peak shaving (pemangkasan beban puncak), cadangan daya di pelabuhan, dan hybrid propulsion.",
+        cara:"Charger (Pengisi) → Battery → BMS → DC Bus → Inverter → Load (Beban).",
+        alur:["🔌 Charger","🔋 Battery","📊 BMS","🔌 DC Bus","🔄 Inverter","💡 Load"],
+        komponen:"Battery Cell, Module, Pack, BMS / Battery Management System (Sistem Manajemen Baterai), Contactor (Kontaktor), Fuse, Breaker, Cooling.",
+        electrical:"Charger → DC Bus → Fuse → Contactor → Battery Pack → Inverter.",
+        eto:"BMS → Voltage/Temp Sensor → PLC → Alarm → HMI.",
+        aplikasi:"Yara Birkeland, Grieg Star, feri elektrik.",
+        kapal50k:"300 kWh–1 MWh.",
+        kelebihan:"Zero emission saat discharge, respons cepat, peak shaving.",
+        keterbatasan:"Umur terbatas, harga tinggi, risiko thermal runaway (pelarian termal).",
+        safety:"Thermal management, fire suppression, venting, ESD / Emergency Shutdown (Penghentian Darurat).",
+        hitung:"Energy (kWh) = V × Ah ÷ 1000. Contoh: 700 V × 500 Ah = 350 kWh.",
+        jobsheet:"Ukur V/I battery, observasi SOC, uji protection.",
+        troubleshoot:"Battery tidak charging → cek BMS alarm, kontaktor, charger.",
+        quiz:"1) Apa itu SOC & SOH / State of Health (Status Kesehatan)? 2) Fungsi BMS? 3) Kenapa LFP lebih aman?",
+        pembuat:"Corvus Energy (NO), Kongsberg (NO), Wärtsilä (FI), Siemens (DE).",
+        harga:"US$ 700–1.600/kWh → 500 kWh ≈ US$ 350k–800k."
+      },
+      {
+        n:"Supercapacitor / Kapasitor Super", sub:"Supercapacitor / Ultracapacitor",
+        s:"yellow", gq:"supercapacitor marine ship peak power",
+        apa:"Perangkat penyimpanan energi dengan HIGH POWER, SHORT DURATION (daya tinggi, durasi pendek).",
+        mengapa:"Menangani lonjakan daya sesaat (saat manuver, crane, regenerative braking / pengereman regeneratif).",
+        cara:"High Power Demand → Supercapacitor → Rapid Discharge (Pelepasan Cepat) → Motor / Crane.",
+        alur:["⚡ High Power Demand","🔋 Supercapacitor","⚡ Rapid Discharge","⚙️ Motor / Crane"],
+        komponen:"Electrode (Elektroda), Electrolyte, DC/DC Converter, Balancing Circuit (Rangkaian Penyeimbang).",
+        electrical:"DC Bus → DC/DC → Supercapacitor Bank.",
+        eto:"Voltage Sensor → Balancing Circuit → PLC.",
+        aplikasi:"Peak power saat manuver, regenerative braking crane.",
+        kapal50k:"50–200 kWh untuk peak power.",
+        kelebihan:"Umur sangat panjang (>500.000 siklus), power tinggi, charge cepat.",
+        keterbatasan:"Energi spesifik rendah (Wh/kg kecil), self-discharge tinggi, mahal.",
+        safety:"Cell balancing, proteksi overvoltage, cooling.",
+        hitung:"E = ½ × C × V². Contoh: C=3000 F, V=2.7 V → 10.9 kJ per cell.",
+        jobsheet:"Bandingkan charge/discharge battery vs supercap.",
+        troubleshoot:"Supercap tidak discharge → cek balancing, DC/DC.",
+        quiz:"1) Beda energi vs power? 2) Kapan supercap dipakai?",
+        pembuat:"Skeleton Technologies (EE), Maxwell (US), Eaton.",
+        harga:"US$ 200–500/kWh."
+      },
+      {
+        n:"Flywheel Energy Storage / Penyimpanan Roda Gaya", sub:"Flywheel Energy Storage (FES)",
+        s:"blue", gq:"flywheel energy storage marine ship",
+        apa:"Menyimpan energi dalam bentuk rotational energy (energi rotasi) dengan memutar roda berat berkecepatan tinggi.",
+        mengapa:"Respons cepat, siklus tak terbatas, cocok untuk high-cycle application.",
+        cara:"Surplus Power (Daya Berlebih) → Motor → Flywheel → Generator → Electricity.",
+        alur:["⚡ Surplus Power","⚙️ Motor","🌀 Flywheel","🔄 Generator","⚡ Electricity"],
+        komponen:"Flywheel Rotor, Magnetic Bearing (Bantalan Magnetik), Motor-Generator, Vacuum Chamber (Ruang Vakum).",
+        electrical:"Motor-Generator → Bidirectional Inverter → DC Bus.",
+        eto:"Speed Sensor → PLC → Power Control.",
+        aplikasi:"Emerging. Cocok untuk high-cycle, high-power.",
+        kapal50k:"5–50 kWh, power 100 kW–1 MW.",
+        kelebihan:"High power, siklus sangat banyak, umur panjang.",
+        keterbatasan:"Mechanical loss, containment (wadah pelindung) berat, safety.",
+        safety:"Containment, overspeed protection, vacuum.",
+        hitung:"E = ½ × I × ω².",
+        jobsheet:"Studi kasus FES, bandingkan dengan battery.",
+        troubleshoot:"Vibrasi berlebih → cek bearing, balancing.",
+        quiz:"1) Kelebihan flywheel? 2) Kenapa vacuum?",
+        pembuat:"Piller (DE), Vycon (US), Amber Kinetics.",
+        harga:"US$ 1.500–3.000/kWh."
+      },
+      {
+        n:"Flow Battery / Baterai Aliran", sub:"Flow Battery / Redox Flow Battery",
+        s:"yellow", gq:"flow battery vanadium marine application",
+        apa:"Baterai di mana energi disimpan dalam tangki electrolyte (elektrolit) cair yang mengalir ke cell stack.",
+        mengapa:"Untuk long duration storage (penyimpanan durasi panjang).",
+        cara:"Electrolyte Tank → Pump (Pompa) → Cell Stack → Electricity → Return to Tank.",
+        alur:["🛢️ Electrolyte Tank","⚙️ Pump","🔋 Cell Stack","⚡ Electricity","🛢️ Return"],
+        komponen:"Electrolyte Tanks, Pump, Cell Stack, Membrane, Bipolar Plate.",
+        electrical:"Cell Stack → DC/DC → DC Bus.",
+        eto:"Flow Sensor → Temp Sensor → PLC → Flow Control.",
+        aplikasi:"Vanadium flow battery untuk pelabuhan & offshore.",
+        kapal50k:"100 kWh–MWh; berat & besar.",
+        kelebihan:"Long duration, umur panjang, mudah di-scale.",
+        keterbatasan:"Berat, besar, harga awal tinggi, complexity.",
+        safety:"Kebocoran elektrolit, MSDS, containment.",
+        hitung:"E = V_cell × Q_electrolyte × n_cell.",
+        jobsheet:"Diagram flow, identifikasi pompa & cell stack.",
+        troubleshoot:"Tegangan rendah → cek pompa, konsentrasi elektrolit.",
+        quiz:"1) Beda flow vs lithium battery? 2) Kenapa long duration?",
+        pembuat:"Rongke Power (CN), Invinity (UK), Sumitomo (JP).",
+        harga:"US$ 400–800/kWh."
+      },
+      {
+        n:"Hybrid Energy Storage / Penyimpanan Hybrid", sub:"Hybrid Energy Storage System (HESS)",
+        s:"yellow", gq:"hybrid energy storage battery supercapacitor ship",
+        apa:"Kombinasi Battery + Supercapacitor / Battery + Flywheel untuk mendapatkan energy & power tinggi sekaligus.",
+        mengapa:"Baterai menangani energi berkelanjutan; supercap menangani lonjakan daya.",
+        cara:"Battery (Energy) + Supercap (Power) → EMS → DC Bus → Load.",
+        alur:["🔋 Battery","⚡ Supercap","🎛️ EMS","🔌 DC Bus","⚙️ Load"],
+        komponen:"Battery Pack, Supercap Bank, DC/DC Converter, EMS, Kontaktor.",
+        electrical:"Battery → DC/DC → DC Bus ← DC/DC ← Supercap.",
+        eto:"EMS → PLC → Kontrol aliran daya.",
+        aplikasi:"Kapal hybrid dengan variasi beban tinggi.",
+        kapal50k:"Sistem 500 kWh–1 MWh + supercap 50–200 kWh.",
+        kelebihan:"Efisiensi tinggi, umur battery lebih panjang, respons cepat.",
+        keterbatasan:"Kompleks, biaya tinggi, butuh manajemen canggih.",
+        safety:"Proteksi kedua sistem, isolasi.",
+        hitung:"E_total = E_battery + E_supercap.",
+        jobsheet:"Analisis kapan battery vs supercap digunakan.",
+        troubleshoot:"EMS error → cek sensor, komunikasi, algoritma.",
+        quiz:"1) Kenapa hybrid lebih baik? 2) Kapan battery vs supercap?",
+        pembuat:"Corvus + Skeleton, Rolls-Royce, ABB.",
+        harga:"US$ 500–1.200/kWh total."
+      }
+    ]
+  },
+
+  C: {
+    title:"🅲 KELOMPOK C — HYDROGEN &amp; FUEL CELL (Hidrogen &amp; Sel Bahan Bakar)",
+    items:[
+      {
+        n:"Hydrogen / Hidrogen", sub:"Green / Blue / Grey Hydrogen",
+        s:"yellow", gq:"green hydrogen electrolyzer marine ship",
+        apa:"Hidrogen (H₂) sebagai energy carrier (pembawa energi). Warna menunjukkan cara produksinya.",
+        mengapa:"Bisa dihasilkan dari listrik terbarukan (Green H₂) dan digunakan sebagai bahan bakar zero-emission.",
+        cara:"Green: Renewable Electricity → Electrolyzer → H₂. Blue: SMR + CCS. Grey: SMR dari gas alam.",
+        alur:["⚡ Renewable Electricity","💧 Electrolyzer","💨 H₂","🛢️ Storage Tank"],
+        komponen:"Electrolyzer, Compressor, Storage Tank, Pressure Regulator, Pipe.",
+        electrical:"Rectifier → DC Supply → Electrolyzer → DC Bus.",
+        eto:"Pressure Sensor → Temp Sensor → Flow Sensor → PLC → Safety Interlock.",
+        aplikasi:"Feri hydrogen, demonstrasi kargo.",
+        kapal50k:"1–5 MW elektrolizer (shore-based); H₂ storage onboard 1–5 ton.",
+        kelebihan:"Zero emission, fleksibel sebagai fuel/energy carrier.",
+        keterbatasan:"Storage sulit (tekanan tinggi/kriogenik), harga mahal, infrastruktur terbatas.",
+        safety:"H₂ mudah terbakar → butuh gas detection, ventilasi, ESD.",
+        hitung:"1 kg H₂ ≈ 33.3 kWh (LHV / Lower Heating Value).",
+        jobsheet:"Ukur tekanan & flow H₂, uji sensor kebocoran.",
+        troubleshoot:"Pressure drop → cek regulator, kebocoran.",
+        quiz:"1) Beda green/blue/grey? 2) Kenapa H₂ sulit disimpan?",
+        pembuat:"Nel Hydrogen (NO), Siemens Energy (DE), ITM Power (UK), Plug Power (US).",
+        harga:"Elektrolizer US$ 1.000–2.000/kW; Green H₂ US$ 4–8/kg."
+      },
+      {
+        n:"Fuel Cell / Sel Bahan Bakar", sub:"Fuel Cell (PEMFC / SOFC / MCFC / PAFC)",
+        s:"yellow", gq:"marine hydrogen fuel cell PEMFC ship",
+        apa:"Perangkat elektrokimia yang mengubah H₂ + O₂ menjadi listrik, panas, dan air.",
+        mengapa:"Zero emission, efisiensi tinggi, tanpa pembakaran.",
+        cara:"H₂ di Anode → Proton → Membrane (Membran) → Cathode → reaksi dengan O₂ → listrik + H₂O + panas.",
+        alur:["💨 H₂","⚡ Anode","🔋 Electrolyte","⚡ Cathode","💨 O₂","⚡ Electricity + Water"],
+        komponen:"Anode, Cathode, Membrane, Stack, Cooling, Air Supply.",
+        electrical:"Fuel Cell Stack → DC/DC Converter → DC Bus → Inverter → Motor.",
+        eto:"H₂ Sensor → Pressure Sensor → Temp Sensor → PLC → Alarm → Shutdown.",
+        aplikasi:"Hydra (feri Norwegia), MF Hydra, Sea Change (US).",
+        kapal50k:"1–3 MW modul untuk auxiliary power.",
+        kelebihan:"Zero emission, senyap, efisiensi 40–60%.",
+        keterbatasan:"Umur membrane, harga, H₂ storage, sensitif impuritas.",
+        safety:"H₂ detection, ventilasi, ESD, purging (pembilasan).",
+        hitung:"V_cell ≈ 0.6–0.7 V (PEMFC); stack V = n × V_cell.",
+        jobsheet:"Ukur V/I fuel cell, hitung efisiensi.",
+        troubleshoot:"Output rendah → cek H₂ flow, membran, suhu.",
+        quiz:"1) Beda PEMFC vs SOFC? 2) Kenapa butuh H₂ murni?",
+        pembuat:"Ballard (CA), Nedstack (NL), Toshiba (JP), Hydrogenics.",
+        harga:"EUR 2.000–3.000/kW → 1 MW ≈ EUR 2–3 juta."
+      }
+    ]
+  },
+
+  D: {
+    title:"🅳 KELOMPOK D — GREEN &amp; ALTERNATIVE FUELS (Bahan Bakar Hijau &amp; Alternatif)",
+    items:[
+      {
+        n:"Green Ammonia / Amonia Hijau", sub:"Green Ammonia (NH₃)",
+        s:"yellow", gq:"green ammonia dual fuel ship IMO",
+        apa:"Amonia (NH₃) yang diproduksi dari H₂ hijau dan N₂ dari udara.",
+        mengapa:"Zero carbon (tanpa CO₂ saat dibakar), energi density lebih tinggi dari H₂, mudah dicairkan.",
+        cara:"Renewable → H₂ → NH₃ (Haber-Bosch). Digunakan di dual-fuel engine (mesin bahan bakar ganda).",
+        alur:["⚡ Renewable","💨 H₂","➕ N₂","🧪 NH₃","🚢 Engine"],
+        komponen:"Storage Tank, Pump, Fuel Supply System, Gas Detection, Ventilation.",
+        electrical:"Fuel Pump Motor → MCC → MSB.",
+        eto:"Gas Detector → PLC → ESD.",
+        aplikasi:"Fortescue Green Pioneer, NYK ammonia-fueled.",
+        kapal50k:"Retrofit dual-fuel ammonia: CAPEX US$ 21–30,8 juta.",
+        kelebihan:"Zero CO₂, infrastruktur sudah ada (pupuk), energy density tinggi.",
+        keterbatasan:"Toxic (beracun), corrosive, butuh pilot fuel, harga mahal.",
+        safety:"Toxic → wajib gas detection, ventilasi, ESD, PPE.",
+        hitung:"LHV NH₃ = 18.6 MJ/kg.",
+        jobsheet:"Uji deteksi gas, diagram fuel supply.",
+        troubleshoot:"Gas alarm → ESD aktif, isolasi, ventilasi.",
+        quiz:"1) Kenapa amonia toksik? 2) Apa itu pilot fuel?",
+        pembuat:"MAN ES (DE), Wärtsilä (FI), WinGD (CH), Yara (NO).",
+        harga:"Amonia hijau US$ 800–1.100/ton."
+      },
+      {
+        n:"Green Methanol / Metanol Hijau", sub:"Green Methanol (CH₃OH)",
+        s:"green", gq:"green methanol container ship Maersk",
+        apa:"Metanol yang diproduksi dari H₂ hijau + CO₂ (e-methanol), atau dari biomassa (bio-methanol).",
+        mengapa:"Cair pada suhu ruang (mudah disimpan), drop-in untuk dual-fuel engine.",
+        cara:"Renewable H₂ + CO₂ → e-Methanol. Digunakan langsung di mesin dual-fuel.",
+        alur:["⚡ Renewable","💨 H₂","➕ CO₂","🧪 CH₃OH","🚢 Dual-Fuel Engine"],
+        komponen:"Storage Tank, Fuel Pump, Fuel Valve, Dual-Fuel Engine, Leakage Sensor.",
+        electrical:"Fuel Pump → MCC → MSB.",
+        eto:"Leakage Sensor → PLC → Fire Safety → Alarm.",
+        aplikasi:"Laura Maersk (2023), Ane Maersk (2024).",
+        kapal50k:"Retrofit dual-fuel methanol: CAPEX US$ 10–15 juta.",
+        kelebihan:"Cair, mudah disimpan, drop-in, bakar bersih.",
+        keterbatasan:"Butuh CO₂ hijau, harga, korosif terhadap aluminium.",
+        safety:"Mudah terbakar (flash point rendah), fire fighting khusus.",
+        hitung:"LHV CH₃OH = 19.9 MJ/kg.",
+        jobsheet:"Diagram fuel system, uji fire suppression.",
+        troubleshoot:"Leakage alarm → isolasi, ventilasi.",
+        quiz:"1) Kenapa metanol lebih mudah dari amonia? 2) Sumber CO₂ hijau?",
+        pembuat:"MAN ES, Methanex (CA), OCI (NL), Maersk Mc-Kinney Møller Center.",
+        harga:"Metanol hijau US$ 600–800/ton."
+      },
+      {
+        n:"Biofuel / Bahan Bakar Nabati", sub:"Biofuel (Biodiesel, HVO, Bio-methanol, Biomethane)",
+        s:"green", gq:"marine biofuel HVO biodiesel ship",
+        apa:"Bahan bakar dari biomassa yang bisa langsung dipakai (drop-in).",
+        mengapa:"Mengurangi emisi CO₂ tanpa mengubah mesin secara signifikan.",
+        cara:"Biomass → Refining → Biofuel → Diesel Engine.",
+        alur:["🌿 Biomass","🏭 Refining","⛽ Biofuel","🚢 Diesel Engine"],
+        komponen:"Storage Tank, Fuel Filter, Injector, Fuel Pump.",
+        electrical:"Fuel Pump Motor → MSB.",
+        eto:"Level Sensor → Flow Sensor → PLC → Alarm.",
+        aplikasi:"B20–B30 umum; HVO / Hydrotreated Vegetable Oil (Minyak Nabati Terhidrogenasi) di uji coba.",
+        kapal50k:"Drop-in 5–30% tanpa modifikasi signifikan.",
+        kelebihan:"Drop-in, hemat emisi, tersedia luas.",
+        keterbatasan:"Kompetisi dengan pangan, harga fluktuatif.",
+        safety:"Fire fighting, spill containment.",
+        hitung:"CO₂ reduction proporsional dengan % blend.",
+        jobsheet:"Uji viskositas, flash point.",
+        troubleshoot:"Filter cepat kotor → cek kualitas BBM.",
+        quiz:"1) Apa itu HVO? 2) Beda FAME & HVO?",
+        pembuat:"Neste (FI), GoodFuels (NL), Chevron Renewable.",
+        harga:"US$ 800–1.400/ton."
+      },
+      {
+        n:"E-Fuels / Bahan Bakar Sintetis", sub:"E-Fuels / Synthetic Fuels",
+        s:"yellow", gq:"e-fuel synthetic marine ship production",
+        apa:"Bahan bakar sintetis dari listrik terbarukan: e-Methanol, e-Ammonia, e-Diesel.",
+        mengapa:"Solusi jangka panjang untuk dekarbonisasi total.",
+        cara:"Renewable electricity → H₂ → sintesis dengan CO₂/N₂ → e-fuel.",
+        alur:["⚡ Renewable","💨 H₂","➕ CO₂/N₂","🧪 e-Fuel","🚢 Engine"],
+        komponen:"Elektrolizer, Synthesis Reactor (Reaktor Sintesis), Storage, Fuel System.",
+        electrical:"Rectifier → DC → Electrolyzer → Synthesis.",
+        eto:"Pressure, Temp, Flow Sensor → PLC → Control.",
+        aplikasi:"HIF Global, Porsche eFuels, MAN, Siemens Energy.",
+        kapal50k:"Sama dengan green ammonia/methanol.",
+        kelebihan:"Carbon-neutral, cocok untuk retrofit.",
+        keterbatasan:"Sangat mahal, efisiensi rendah, produksi terbatas.",
+        safety:"Sama dengan fuel asal.",
+        hitung:"Efisiensi well-to-wheel ≈ 10–20%.",
+        jobsheet:"Diagram alur produksi e-fuel.",
+        troubleshoot:"Kualitas produk → cek reaktor, katalis.",
+        quiz:"1) Apa itu e-fuel? 2) Kenapa efisiensi rendah?",
+        pembuat:"HIF Global (CL), Siemens Energy, MAN.",
+        harga:"US$ 1.000–2.500/ton."
+      }
+    ]
+  },
+
+  E: {
+    title:"🅴 KELOMPOK E — ENERGY HARVESTING &amp; EFFICIENCY (Pemanenan Energi &amp; Efisiensi)",
+    items:[
+      {
+        n:"Vibration Energy Harvesting / Pemanenan Getaran", sub:"Vibration Energy Harvesting",
+        s:"blue", gq:"vibration energy harvesting piezoelectric ship",
+        apa:"Mengubah getaran mesin menjadi listrik kecil (mW–W) menggunakan piezoelectric atau electromagnetic harvester (pemanen elektromagnetik).",
+        mengapa:"Untuk memberi daya sensor nirkabel, IoT, condition monitoring (pemantauan kondisi).",
+        cara:"Vibration → Piezo Element → Small Electricity → Sensor / Wireless.",
+        alur:["📳 Vibration","🔧 Piezo Element","⚡ Small Electricity","📡 Sensor"],
+        komponen:"Piezo Element, Rectifier, Storage Capacitor, Wireless Sensor.",
+        electrical:"Piezo → Rectifier → Capacitor → Sensor.",
+        eto:"Vibration Sensor → Wireless → Monitoring System.",
+        aplikasi:"Emerging. Untuk IoT & condition monitoring.",
+        kapal50k:"mW–W (bukan propulsion).",
+        kelebihan:"Self-powered sensor, tanpa baterai, low maintenance.",
+        keterbatasan:"Output kecil, frekuensi terbatas.",
+        safety:"Isolasi, proteksi piezo.",
+        hitung:"P = ½ × C × V² × f.",
+        jobsheet:"Uji piezo, ukur output.",
+        troubleshoot:"Output nol → cek kontak, frekuensi resonansi.",
+        quiz:"1) Kenapa cocok untuk sensor? 2) Efek piezo?",
+        pembuat:"Perpetuum (UK), ReVibe (US).",
+        harga:"US$ 100–1.000/node."
+      },
+      {
+        n:"Waste Heat Recovery / Pemanfaatan Panas Buang", sub:"Waste Heat Recovery (WHR)",
+        s:"green", gq:"waste heat recovery system ship ORC",
+        apa:"Memanfaatkan panas dari gas buang mesin untuk menghasilkan uap atau listrik.",
+        mengapa:"Menambah energi tanpa menambah bahan bakar.",
+        cara:"Exhaust Gas (Gas Buang) → Boiler/Economizer → Steam (Uap) → Turbine → Generator. Alternatif: ORC / Organic Rankine Cycle (Siklus Rankine Organik).",
+        alur:["🔥 Exhaust Gas","♨️ Boiler","💨 Steam","🌀 Turbine","🔄 Generator","⚡ Electricity"],
+        komponen:"Economizer, Exhaust Gas Boiler, Steam Turbine, ORC Unit, Generator.",
+        electrical:"Generator → MSB → Distribusi.",
+        eto:"Temp Sensor → Pressure Sensor → PLC → Bypass Valve Control.",
+        aplikasi:"Sudah umum di kapal besar modern.",
+        kapal50k:"1–3 MW pemulihan daya; hemat BBM 5–10%.",
+        kelebihan:"Hemat BBM, mengurangi emisi, teknologi matang.",
+        keterbatasan:"Investasi awal tinggi, butuh ruang, perawatan boiler.",
+        safety:"High temperature, high pressure, steam safety valve (katup pengaman uap).",
+        hitung:"η_WHR ≈ 3–8% dari daya mesin utama.",
+        jobsheet:"Diagram WHR, kalkulasi penghematan.",
+        troubleshoot:"Output rendah → cek fouling, bypass valve.",
+        quiz:"1) Apa itu ORC? 2) Kenapa WHR penting?",
+        pembuat:"MAN ES, Alfa Laval (SE), Climeon (SE), Orcan Energy (DE).",
+        harga:"US$ 2–5 juta sistem lengkap."
+      }
+    ]
+  },
+
+  F: {
+    title:"🅵 KELOMPOK F — FUTURE INTEGRATED SHIP (Kapal Masa Depan Terintegrasi)",
+    items:[
+      {
+        n:"Hybrid Ship / Kapal Hybrid", sub:"Hybrid Ship — Multi-Source Energy",
+        s:"yellow", gq:"hybrid ship energy system diesel solar battery wind",
+        apa:"Kapal dengan lebih dari satu sumber energi: Main Engine, Diesel Gen, Solar PV, Wind, Battery, Fuel Cell.",
+        mengapa:"Fleksibilitas, efisiensi, dan dekarbonisasi bertahap.",
+        cara:"Semua sumber → Bus listrik → PMS + EMS → Distribution → Propulsion.",
+        alur:["⚙️ Main Engine","🔥 Diesel Gen","☀️ Solar PV","💨 Wind","🔋 Battery","💨 Fuel Cell","🎛️ PMS+EMS","⚙️ Propulsion"],
+        komponen:"Multi-Source, Bus, Protection, Converter, PMS, EMS.",
+        electrical:"MSB → Distribution → Load & Propulsion.",
+        eto:"PMS → EMS → PLC → HMI.",
+        aplikasi:"Color Hybrid, Aurora Botnia.",
+        kapal50k:"1–5 MWh storage + 3–5 sumber energi.",
+        kelebihan:"Fleksibel, hemat BBM, dekarbonisasi bertahap.",
+        keterbatasan:"Kompleks, mahal, butuh operator terlatih.",
+        safety:"Isolasi tiap sumber, proteksi arus balik, blackout prevention.",
+        hitung:"Load balancing → Σ supply = Σ demand.",
+        jobsheet:"Simulasi pembagian beban, skenario fault.",
+        troubleshoot:"Blackout → cek PMS, generator, kontaktor.",
+        quiz:"1) Peran PMS vs EMS? 2) Cara mencegah blackout?",
+        pembuat:"Kongsberg (NO), Wärtsilä (FI), ABB (CH), Siemens (DE).",
+        harga:"Paket integrasi US$ 1,5–3 juta."
+      },
+      {
+        n:"Shipboard DC Microgrid / Microgrid DC Kapal", sub:"Shipboard DC Microgrid",
+        s:"yellow", gq:"shipboard DC microgrid ABB Onboard DC Grid",
+        apa:"Sistem distribusi DC terpusat di kapal, di mana PV + BESS + Fuel Cell + Generator bertemu di DC Bus.",
+        mengapa:"Mengurangi konversi AC-DC berulang, meningkatkan efisiensi.",
+        cara:"Semua sumber → DC Bus → DC/DC / DC/AC → Load & Motor Drive.",
+        alur:["☀️ PV","🔋 BESS","💨 Fuel Cell","🔥 Generator","➡️ DC Bus","⚡ DC/AC","⚙️ Motor Drive"],
+        komponen:"DC Bus, DC/DC Converter, DC/AC Inverter, Protection (DC Breaker, Fuse), Motor Drive.",
+        electrical:"DC Bus 1–1,5 kV; distribusi modular.",
+        eto:"PLC → EMS → Monitoring → HMI.",
+        aplikasi:"Yara Birkeland, feri elektrik.",
+        kapal50k:"DC Bus 1–1,5 kV DC; modular.",
+        kelebihan:"Efisien, sederhana, fleksibel, cocok dengan renewable DC.",
+        keterbatasan:"Proteksi DC lebih sulit (arc), butuh converter khusus.",
+        safety:"DC arc detection, isolasi galvanik, PPE.",
+        hitung:"P = V_dc × I_dc; efisiensi ≥ 95%.",
+        jobsheet:"Diagram DC grid, identifikasi proteksi DC.",
+        troubleshoot:"Arc fault → cek isolasi, koneksi.",
+        quiz:"1) Kenapa DC lebih efisien? 2) Tantangan proteksi DC?",
+        pembuat:"ABB (Onboard DC Grid), Siemens (BlueDrive), Corvus.",
+        harga:"US$ 500k–2 juta."
+      },
+      {
+        n:"PMS & EMS / Manajemen Daya & Energi", sub:"Power Management System (PMS) &amp; Energy Management System (EMS)",
+        s:"green", gq:"marine power management system PMS EMS HMI panel",
+        apa:"PMS / Power Management System (Sistem Manajemen Daya): mengontrol generator & load sharing. EMS / Energy Management System (Sistem Manajemen Energi): mengoptimalkan energi (peak shaving, load shifting).",
+        mengapa:"Menjaga kestabilan, efisiensi, dan mencegah blackout.",
+        cara:"PMS: start/stop generator, sinkronisasi, load sharing. EMS: analisis data sensor, optimasi via algoritma/AI.",
+        alur:["📊 Sensors","🎛️ PLC","🧠 EMS Algorithm","🎛️ PMS Control","⚙️ Generator & Load"],
+        komponen:"PLC, HMI, Sensor, Controller, Communication Bus (CAN/Modbus).",
+        electrical:"Control Bus → Breaker, Generator, Battery, Inverter.",
+        eto:"PLC → HMI → Alarm → Data Logging.",
+        aplikasi:"Wajib di kapal hybrid & multi-source.",
+        kapal50k:"PMS US$ 50k–150k; EMS software US$ 20k–100k.",
+        kelebihan:"Stabil, efisien, otomatis, data real-time.",
+        keterbatasan:"Kompleks, butuh operator terlatih, cybersecurity.",
+        safety:"Redundancy (Redundansi), backup control, ESD.",
+        hitung:"Load sharing: P_total dibagi rata atau sesuai prioritas.",
+        jobsheet:"Simulasi PMS, analisis log EMS.",
+        troubleshoot:"Load tidak seimbang → cek sensor, kalibrasi.",
+        quiz:"1) Beda PMS & EMS? 2) Contoh peak shaving?",
+        pembuat:"DEIF (DK), ComAp (CZ), Kongsberg (K-Power), Wärtsilä, ABB.",
+        harga:"Total US$ 70k–250k."
+      }
+    ]
+  },
+
+  T: {
+    title:"🛠 TROUBLESHOOTING &amp; SAFETY (Pencarian Gangguan &amp; Keselamatan)",
+    items:[
+      { n:"PV Tidak Output / PV Tidak Menghasilkan", sub:"Solar PV No Output", s:"green",
+        gq:"solar PV troubleshooting marine ship no output",
+        apa:"Panel PV tidak menghasilkan listrik meski ada cahaya matahari.",
+        mengapa:"Menghindari kehilangan suplai daya dari solar.",
+        cara:"Fault → Analysis (Analisis) → Test (Uji) → Find (Temukan) → Action (Tindakan).",
+        alur:["🔍 Fault","📋 Analysis","🔧 Test","✅ Find","🛠 Action"],
+        komponen:"Multimeter, Clamp Meter, Fuse Tester.",
+        electrical:"Ukur V_oc (Open Circuit Voltage / Tegangan Rangkaian Terbuka), I_sc (Short Circuit Current / Arus Hubung Singkat) per string.",
+        eto:"Cek MPPT error log.",
+        aplikasi:"Semua sistem PV.",
+        kapal50k:"-", kelebihan:"-", keterbatasan:"-",
+        safety:"Matikan DC breaker sebelum kerja.",
+        hitung:"V_oc normal ≈ 1.2× V_mp (Maximum Power Voltage / Tegangan Daya Maksimum).",
+        jobsheet:"Ukur tiap string.",
+        troubleshoot:"String 0 V → cek fuse, konektor.",
+        quiz:"1) Urutan troubleshooting PV?",
+        pembuat:"-", harga:"-"
+      },
+      { n:"Battery Tidak Charging / Baterai Tidak Mengisi", sub:"Battery Not Charging", s:"green",
+        gq:"marine battery BMS troubleshooting not charging",
+        apa:"Baterai tidak menerima arus pengisian meski charger aktif.",
+        mengapa:"Menghindari kehilangan cadangan daya.",
+        cara:"Cek BMS alarm, kontaktor, charger, suhu.",
+        alur:["🔍 Fault","📋 Analysis","🔧 Test","✅ Find","🛠 Action"],
+        komponen:"Multimeter, BMS Diagnostic Tool.",
+        electrical:"Ukur V charger, V battery, arus charging.",
+        eto:"Cek BMS error code, SOC, SOH.",
+        aplikasi:"Semua kapal dengan BESS.",
+        kapal50k:"-", kelebihan:"-", keterbatasan:"-",
+        safety:"PPE, isolasi DC, ESD.",
+        hitung:"Arus charging normal ≈ 0.5C.",
+        jobsheet:"Ukur V/I, catat SOC.",
+        troubleshoot:"Kontaktor tidak close → cek coil, wiring, BMS interlock.",
+        quiz:"1) Fungsi BMS saat charging?",
+        pembuat:"-", harga:"-"
+      },
+      { n:"Inverter Trip", sub:"Inverter Trip", s:"green",
+        gq:"marine inverter trip troubleshooting",
+        apa:"Inverter (Pengubah DC→AC) mati mendadak / trip.",
+        mengapa:"Untuk memulihkan suplai AC ke beban.",
+        cara:"Cek overload, DC input, ventilasi.",
+        alur:["🔍 Fault","📋 Analysis","🔧 Test","✅ Find","🛠 Action"],
+        komponen:"Multimeter, Thermal Camera.",
+        electrical:"Ukur V_dc input, I_ac output, suhu heatsink.",
+        eto:"Baca fault code inverter, reset.",
+        aplikasi:"Semua sistem AC berbasis inverter.",
+        kapal50k:"-", kelebihan:"-", keterbatasan:"-",
+        safety:"Matikan breaker sebelum reset.",
+        hitung:"V_dc min = V_ac × √2 + margin.",
+        jobsheet:"Ukur beban, cek cooling.",
+        troubleshoot:"Overload → kurangi beban, cek parameter.",
+        quiz:"1) Penyebab umum inverter trip?",
+        pembuat:"-", harga:"-"
+      },
+      { n:"VFD Fault", sub:"Variable Frequency Drive Fault", s:"green",
+        gq:"marine VFD fault troubleshooting motor overload",
+        apa:"VFD / Variable Frequency Drive (Pengatur Kecepatan Motor) mendeteksi gangguan.",
+        mengapa:"Melindungi motor & sistem drive.",
+        cara:"Cek motor overload, parameter, insulasi.",
+        alur:["🔍 Fault","📋 Analysis","🔧 Test","✅ Find","🛠 Action"],
+        komponen:"Multimeter, Megaohmmeter.",
+        electrical:"Ukur I motor, insulasi winding.",
+        eto:"Baca fault code, reset, cek parameter.",
+        aplikasi:"Rotor sail, fan, pump, winch.",
+        kapal50k:"-", kelebihan:"-", keterbatasan:"-",
+        safety:"Lock-out Tag-out (LOTO / Kunci-Pasang Label).",
+        hitung:"I_nominal = P / (√3 × V × cos φ).",
+        jobsheet:"Ukur insulasi motor, cek log VFD.",
+        troubleshoot:"Overload → cek beban, ventilasi, parameter.",
+        quiz:"1) Fungsi VFD? 2) Jenis fault umum?",
+        pembuat:"-", harga:"-"
+      },
+      { n:"Wind Rotor Tidak Start", sub:"Wind Rotor Not Starting", s:"green",
+        gq:"Flettner rotor control system troubleshooting",
+        apa:"Rotor angin tidak berputar meski kapal berlayar & ada angin.",
+        mengapa:"Kehilangan potensi penghematan BBM.",
+        cara:"Cek wind sensor, interlock, VFD, motor.",
+        alur:["🔍 Fault","📋 Analysis","🔧 Test","✅ Find","🛠 Action"],
+        komponen:"Multimeter, Wind Sensor Tester.",
+        electrical:"Ukur suplai motor, VFD output.",
+        eto:"Cek PLC logic, sensor angin, interlock.",
+        aplikasi:"Kapal dengan rotor sail.",
+        kapal50k:"-", kelebihan:"-", keterbatasan:"-",
+        safety:"Emergency Stop aktif.",
+        hitung:"RPM normal rotor ≈ 100–300 RPM.",
+        jobsheet:"Ukur sinyal sensor angin, uji manual VFD.",
+        troubleshoot:"Sensor angin error → kalibrasi/ganti.",
+        quiz:"1) Interlock apa yang mencegah rotor start?",
+        pembuat:"-", harga:"-"
+      },
+      { n:"H₂ Leakage Alarm", sub:"Hydrogen Leakage Alarm", s:"green",
+        gq:"hydrogen leakage detection ship safety",
+        apa:"Sensor mendeteksi kebocoran hidrogen.",
+        mengapa:"H₂ mudah terbakar → wajib tindakan cepat.",
+        cara:"ESD aktif, isolasi, ventilasi.",
+        alur:["🚨 Alarm","🔒 ESD Aktif","🔌 Isolasi","💨 Ventilasi","📋 Investigasi"],
+        komponen:"H₂ Sensor, Ventilation Fan, ESD Valve.",
+        electrical:"Trip suplai ke sistem H₂.",
+        eto:"Alarm ke HMI, ESD aktif otomatis.",
+        aplikasi:"Kapal fuel cell & H₂ storage.",
+        kapal50k:"-", kelebihan:"-", keterbatasan:"-",
+        safety:"Jangan nyalakan api, gunakan PPE, isolasi area.",
+        hitung:"LFL H₂ = 4% volume; UFL = 75%.",
+        jobsheet:"Uji sensor H₂ dengan gas kalibrasi.",
+        troubleshoot:"False alarm → kalibrasi sensor.",
+        quiz:"1) LFL & UFL? 2) Urutan ESD?",
+        pembuat:"-", harga:"-"
+      },
+      { n:"Sensor Failure / Sensor Gagal", sub:"Sensor Failure", s:"green",
+        gq:"marine sensor failure troubleshooting 4-20mA",
+        apa:"Sensor tidak memberi sinyal sesuai kondisi aktual.",
+        mengapa:"Data salah → kontrol salah.",
+        cara:"Cek wiring, supply 24 V, kalibrasi.",
+        alur:["🔍 Fault","📋 Analysis","🔧 Test","✅ Find","🛠 Action"],
+        komponen:"Multimeter, Calibrator.",
+        electrical:"Ukur supply 24 V, sinyal 4–20 mA.",
+        eto:"Cek range, scaling, komunikasi.",
+        aplikasi:"Semua sistem instrumentasi.",
+        kapal50k:"-", kelebihan:"-", keterbatasan:"-",
+        safety:"Isolasi loop sebelum kerja.",
+        hitung:"4 mA = 0%, 20 mA = 100%.",
+        jobsheet:"Ukur sinyal, bandingkan dengan nilai aktual.",
+        troubleshoot:"Sinyal 0 mA → cek supply, wiring.",
+        quiz:"1) Standar sinyal industri? 2) Cara kalibrasi?",
+        pembuat:"-", harga:"-"
+      },
+      { n:"Communication Failure / Komunikasi Gagal", sub:"Communication Failure (CAN / Modbus)", s:"green",
+        gq:"marine communication bus CAN Modbus troubleshooting",
+        apa:"Data tidak terkirim antar perangkat (PLC, HMI, drive).",
+        mengapa:"Sistem kontrol kehilangan monitoring.",
+        cara:"Cek terminasi, kabel, alamat node.",
+        alur:["🔍 Fault","📋 Analysis","🔧 Test","✅ Find","🛠 Action"],
+        komponen:"Multimeter, CAN Analyzer.",
+        electrical:"Ukur resistansi bus (120 Ω terminator).",
+        eto:"Cek node address, baud rate, error counter.",
+        aplikasi:"Semua sistem terintegrasi.",
+        kapal50k:"-", kelebihan:"-", keterbatasan:"-",
+        safety:"Matikan node sebelum cabut konektor.",
+        hitung:"Terminator 120 Ω di kedua ujung bus.",
+        jobsheet:"Ukur resistansi bus, cek komunikasi node satu per satu.",
+        troubleshoot:"Tidak ada komunikasi → cek terminasi, alamat.",
+        quiz:"1) Fungsi terminator? 2) Beda CAN & Modbus?",
+        pembuat:"-", harga:"-"
+      }
+    ]
+  }
+};
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function statusBadge(s){
+  if(s==="green") return '<span class="badge green">🟢 COMMERCIAL / Sudah Komersial</span>';
+  if(s==="yellow") return '<span class="badge yellow">🟡 DEMONSTRATION / Demonstrasi</span>';
+  return '<span class="badge blue">🔵 EMERGING / Berkembang</span>';
+}
+
+function cardHTML(cat, idx, item){
+  return `<div class="card" onclick="openDetail('${cat}',${idx})">
+    ${statusBadge(item.s)}
+    <h3>${item.n}</h3>
+    <h4>${item.sub}</h4>
+    <p>${item.apa}</p>
+    <div class="meta"><b>50k DWT:</b> ${item.kapal50k}</div>
+    <button class="btn-google" onclick="event.stopPropagation();window.open('${gq(item.gq)}','_blank')">🔍 Foto Google</button>
+  </div>`;
+}
+
+function showHome(el){
+  setActive(el);
+  const hero = `<div class="hero">
+    <h2>⚓ Selamat Datang di WebApp Shipboard Energy System</h2>
+    <p><b>Prinsip:</b> English Technical Term → Bahasa Indonesia → Penjelasan Sederhana</p>
+    <p><b>Alur Utama:</b></p>
+    <div class="flow-hero">
+      <em>Energy Source</em> → <em>Generation</em> → <em>Conversion</em> → <em>Distribution</em> → <em>Protection</em> → <em>Control</em> → <em>Load</em> → <em>Propulsion</em>
+    </div>
+    <p style="margin-top:.7rem"><b>Jalur Kompetensi:</b> ⚡ <b>Electrical (Teknika):</b> Power &nbsp;|&nbsp; 🎛️ <b>Electronical/ETO:</b> Control</p>
+    <p style="margin-top:.5rem"><b>Cara pakai:</b> Klik menu Navbar di atas atau klik kartu di bawah untuk membuka popup detail. Setiap popup punya tombol Google Images untuk melihat foto penunjang.</p>
+  </div>`;
+  let html = hero;
+  ["A","B","C","D","E","F","T"].forEach(k=>{
+    const cat = DATA[k];
+    html += `<h2 class="sec-head">${cat.title}</h2><div class="grid">`;
+    cat.items.forEach((it,i)=>{ html += cardHTML(k,i,it); });
+    html += `</div>`;
+  });
+  document.getElementById('content').innerHTML = html;
+}
+
+function showCategory(cat, el){
+  setActive(el);
+  const c = DATA[cat];
+  let html = `<h2 class="sec-head">${c.title}</h2><div class="grid">`;
+  c.items.forEach((it,i)=>{ html += cardHTML(cat,i,it); });
+  html += `</div>`;
+  document.getElementById('content').innerHTML = html;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function setActive(el){
+  document.querySelectorAll('#navbar a').forEach(a=>a.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+
+/* ============================================================
+   MODAL DETAIL
+   ============================================================ */
+function openDetail(cat, idx){
+  const it = DATA[cat].items[idx];
+  const flowHTML = it.alur.map(x=>`<em>${x}</em>`).join(' → ');
+  const html = `
+    <div class="m-head">
+      ${statusBadge(it.s)}
+      <h2>${it.n}</h2>
+      <small>${it.sub}</small>
+    </div>
+
+    <div class="section"><h4>📘 Apa itu? / What is it?</h4><p>${it.apa}</p></div>
+
+    <div class="section"><h4>❓ Mengapa digunakan? / Why is it used?</h4><p>${it.mengapa}</p></div>
+
+    <div class="section"><h4>⚙️ Bagaimana cara kerjanya? / How does it work?</h4><p>${it.cara}</p>
+      <div class="flow">${flowHTML}</div>
+    </div>
+
+    <div class="section"><h4>🔩 Komponen Utama / Main Components</h4><p>${it.komponen}</p></div>
+
+    <div class="section"><h4>⚡ Sistem Kelistrikan / Electrical System</h4><p>${it.electrical}</p></div>
+
+    <div class="section"><h4>🎛️ Sistem Elektronika, Instrumentasi &amp; Kendali / ETO System</h4><p>${it.eto}</p></div>
+
+    <div class="section"><h4>🚢 Penerapan pada Kapal / Ship Application</h4><p>${it.aplikasi}</p></div>
+
+    <div class="section"><h4>📏 Contoh Kapal 50.000 DWT / 50k DWT Case</h4><p>${it.kapal50k}</p></div>
+
+    <div class="section"><h4>✅ Keuntungan / Advantages</h4><p>${it.kelebihan}</p></div>
+
+    <div class="section"><h4>⚠️ Keterbatasan / Limitations</h4><p>${it.keterbatasan}</p></div>
+
+    <div class="section"><h4>🛡️ Keselamatan / Safety</h4><p>${it.safety}</p></div>
+
+    <div class="section"><h4>🧮 Perhitungan / Calculation</h4><p>${it.hitung}</p></div>
+
+    <div class="section"><h4>🧪 Job Sheet Praktik / Practical Job Sheet</h4><p>${it.jobsheet}</p></div>
+
+    <div class="section"><h4>🔧 Pencarian Gangguan / Troubleshooting</h4><p>${it.troubleshoot}</p></div>
+
+    <div class="section"><h4>❓ Quiz / Tes Pemahaman</h4><p>${it.quiz}</p></div>
+
+    <div class="section"><h4>🏭 Pembuat / Manufacturer</h4><p>${it.pembuat}</p></div>
+
+    <div class="section"><h4>💰 Estimasi Harga / Estimated Price</h4><p>${it.harga}</p></div>
+
+    <div style="margin-top:1.2rem;text-align:center">
+      <a class="btn-gq" href="${gq(it.gq)}" target="_blank">🔍 Lihat Foto &amp; Diagram di Google Images</a>
+      <button class="btn-back" onclick="closeModal()">⬅ Kembali</button>
+    </div>
+  `;
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modal').classList.add('show');
+  document.getElementById('modal').scrollTop = 0;
+}
+
+function closeModal(){
+  document.getElementById('modal').classList.remove('show');
+}
+
+/* Tutup modal saat klik background */
+document.getElementById('modal').addEventListener('click', function(e){
+  if(e.target.id === 'modal') closeModal();
+});
+
+/* Tutup modal dengan tombol ESC */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeModal();
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+showHome(document.querySelector('#navbar a[data-cat="home"]'));
+</script>
+</body>
+</html>
